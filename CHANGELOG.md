@@ -3,6 +3,19 @@
 All notable changes to Velum are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.3] - 2026-05-10
+
+Install UX fix discovered by first cross-platform smoke test on WSL2 Ubuntu.
+
+### Fixed
+- `uvx velum-pii` now works directly instead of failing with `An executable
+  named 'velum-pii' is not provided by package 'velum-pii'`. The package
+  installs a `velum` executable, but `uvx` looks for an executable matching
+  the package name by default. Added `velum-pii` as a second console-script
+  entry mapped to the same `velum.cli:main` function. Both commands behave
+  identically; users who already learned the workaround (`uvx --from
+  velum-pii velum`) keep working too.
+
 ## [0.1.2] - 2026-05-10
 
 Documentation patch — no functional or packaging changes. Supersedes v0.1.1

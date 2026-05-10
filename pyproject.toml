@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "velum-pii"
-version = "0.1.2"
+version = "0.1.3"
 description = "Local-first PII redaction tool powered by OpenAI Privacy Filter"
 readme = "README.md"
 license = "Apache-2.0"
@@ -39,6 +39,9 @@ dev = [
 
 [project.scripts]
 velum = "velum.cli:main"
+# Alias matching the PyPI distribution name so `uvx velum-pii` works without
+# the `--from` flag. Both commands run the same entry point.
+velum-pii = "velum.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/velum"]
