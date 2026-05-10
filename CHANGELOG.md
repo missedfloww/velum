@@ -3,17 +3,27 @@
 All notable changes to Velum are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [0.1.1] - 2026-05-10
+## [0.1.2] - 2026-05-10
 
-Documentation patch — no functional or packaging changes.
+Documentation patch — no functional or packaging changes. Supersedes v0.1.1
+on TestPyPI (v0.1.1 was never promoted to real PyPI).
 
 ### Fixed
-- README images (header banners, demo video poster, screenshot fallback link)
+- README images (header banner, demo video poster, screenshot fallback link)
   now use absolute `raw.githubusercontent.com` URLs so they render on PyPI's
   project page. The previous repo-relative `<img src="assets/...">` worked on
-  GitHub but resolved to 404s on `pypi.org/project/velum-pii/`. The
-  `#gh-dark-mode-only` / `#gh-light-mode-only` fragments are preserved so
-  GitHub's theme-aware banner switching still works.
+  GitHub but resolved to 404s on `pypi.org/project/velum-pii/`.
+- Header now uses a single banner instead of paired dark/light banners. PyPI's
+  Markdown renderer ignores the GitHub-only `#gh-dark-mode-only` /
+  `#gh-light-mode-only` URL fragments, so both banners were rendering stacked
+  on the PyPI project page. The single banner has a self-contained dark
+  background and reads fine on both GitHub themes.
+- Demo section replaced the inline `<video>` element with a click-through
+  screenshot linking to the video. PyPI's Markdown sanitizer strips `<video>`
+  tags entirely, leaving only the fallback text — the Demo section appeared
+  empty on `pypi.org`. The click-through image renders on both PyPI and
+  GitHub; the trade-off is that GitHub no longer plays the video inline (a
+  click still opens it on the user-attachments CDN).
 
 ## [0.1.0] - 2026-05-10
 
