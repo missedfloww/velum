@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "velum-pii"
+version = "0.1.0"
+description = "Local-first PII redaction tool powered by OpenAI Privacy Filter"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+authors = [
+    { name = "missedfloww", email = "277542288+missedfloww@users.noreply.github.com" },
+]
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "streamlit>=1.38.0",
+    "httpx>=0.27.0",
+    # Runtime deps for the vendored opf subset at src/velum/_vendor/opf/.
+    # See docs/superpowers/plans/2026-05-10-opf-vendor-audit.md for the
+    # provenance of each line. Version constraints intentionally loose:
+    # upstream opf pins none, and Velum's vendored subset is a thin
+    # wrapper around stable APIs (torch.nn.Module subclass, safetensors
+    # load, tiktoken encode, huggingface_hub snapshot_download).
+    "torch",
+    "tiktoken",
+    "safetensors",
+    "huggingface-hub",
+    "tqdm",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.6.0",
+]
+
+[project.scripts]
+velum = "velum.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/velum"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/velum/frontend/static" = "velum/frontend/static"
+
+[tool.uv]
+index-strategy = "unsafe-best-match"
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = ["src/velum/_vendor"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
