@@ -43,9 +43,6 @@ velum = "velum.cli:main"
 [tool.hatch.build.targets.wheel]
 packages = ["src/velum"]
 
-[tool.hatch.build.targets.wheel.force-include]
-"src/velum/frontend/static" = "velum/frontend/static"
-
 [tool.uv]
 index-strategy = "unsafe-best-match"
 
