@@ -3,6 +3,18 @@
 All notable changes to Velum are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.1] - 2026-05-10
+
+Documentation patch — no functional or packaging changes.
+
+### Fixed
+- README images (header banners, demo video poster, screenshot fallback link)
+  now use absolute `raw.githubusercontent.com` URLs so they render on PyPI's
+  project page. The previous repo-relative `<img src="assets/...">` worked on
+  GitHub but resolved to 404s on `pypi.org/project/velum-pii/`. The
+  `#gh-dark-mode-only` / `#gh-light-mode-only` fragments are preserved so
+  GitHub's theme-aware banner switching still works.
+
 ## [0.1.0] - 2026-05-10
 
 First public release.

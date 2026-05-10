@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "velum-pii"
-version = "0.1.0"
+version = "0.1.1"
 description = "Local-first PII redaction tool powered by OpenAI Privacy Filter"
 readme = "README.md"
 license = "Apache-2.0"

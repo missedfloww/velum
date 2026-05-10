@@ -1,6 +1,6 @@
 <p align="center">
-  <img src="assets/branding/banner.png#gh-dark-mode-only" alt="Velum" width="640" />
-  <img src="assets/branding/banner-light.png#gh-light-mode-only" alt="Velum" width="640" />
+  <img src="https://raw.githubusercontent.com/missedfloww/velum/main/assets/branding/banner.png#gh-dark-mode-only" alt="Velum" width="640" />
+  <img src="https://raw.githubusercontent.com/missedfloww/velum/main/assets/branding/banner-light.png#gh-light-mode-only" alt="Velum" width="640" />
 </p>
 
 <p align="center">
@@ -38,14 +38,14 @@ Velum runs on **CPU only** in v0.1.0 — PyTorch is installed from the CPU wheel
 <p align="center">
   <video
     src="https://github.com/user-attachments/assets/7723aaee-5e7d-48ae-a9c6-1ac65ca9c73c"
-    poster="assets/branding/screenshot.png"
+    poster="https://raw.githubusercontent.com/missedfloww/velum/main/assets/branding/screenshot.png"
     controls
     muted
     loop
     playsinline
     width="720">
     Your viewer doesn't support inline video — see the
-    <a href="assets/branding/screenshot.png">screenshot</a>.
+    <a href="https://raw.githubusercontent.com/missedfloww/velum/main/assets/branding/screenshot.png">screenshot</a>.
   </video>
 </p>
 
