@@ -37,7 +37,7 @@ Velum runs on **CPU only** in v0.1.0 — PyTorch is installed from the CPU wheel
 
 <p align="center">
   <video
-    src="https://github.com/user-attachments/assets/f44127d3-24d8-41e5-9b51-2b137b618c6b"
+    src="https://github.com/user-attachments/assets/7723aaee-5e7d-48ae-a9c6-1ac65ca9c73c"
     poster="assets/branding/screenshot.png"
     controls
     muted
