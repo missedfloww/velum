@@ -3,6 +3,22 @@
 All notable changes to Velum are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.4] - 2026-05-10
+
+Local-first compliance fix surfaced by the same WSL2 Ubuntu smoke run that
+shipped v0.1.3.
+
+### Fixed
+- Streamlit's first-run welcome message no longer surfaces. The
+  `--browser.gatherUsageStats false` flag passed to `streamlit run` already
+  disabled telemetry uploads, but Streamlit still printed an interactive
+  "Welcome to Streamlit! ... please enter your email address" prompt on the
+  first launch because that prompt is gated by the existence of
+  `~/.streamlit/credentials.toml`, not by the telemetry flag. The launcher
+  now pre-creates that file with an empty email so Streamlit treats the user
+  as already onboarded. The behaviour is idempotent — if the file already
+  exists with user-provided content, it is left untouched.
+
 ## [0.1.3] - 2026-05-10
 
 Install UX fix discovered by first cross-platform smoke test on WSL2 Ubuntu.

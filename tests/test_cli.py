@@ -139,3 +139,41 @@ def test_cli_main_is_callable() -> None:
     from velum import cli
 
     assert callable(cli.main)
+
+
+def test_suppress_streamlit_welcome_creates_credentials_file(tmp_path) -> None:
+    """suppress_streamlit_welcome writes credentials.toml with empty email."""
+    from velum import cli
+
+    creds_path = cli.suppress_streamlit_welcome(home=tmp_path)
+
+    assert creds_path == tmp_path / ".streamlit" / "credentials.toml"
+    assert creds_path.exists()
+    content = creds_path.read_text(encoding="utf-8")
+    assert "[general]" in content
+    assert 'email = ""' in content
+
+
+def test_suppress_streamlit_welcome_is_idempotent(tmp_path) -> None:
+    """If credentials.toml already exists, suppress_streamlit_welcome leaves it alone."""
+    from velum import cli
+
+    creds_dir = tmp_path / ".streamlit"
+    creds_dir.mkdir()
+    creds_path = creds_dir / "credentials.toml"
+    original_content = '[general]\nemail = "alice@example.com"\n'
+    creds_path.write_text(original_content, encoding="utf-8")
+
+    returned = cli.suppress_streamlit_welcome(home=tmp_path)
+
+    assert returned == creds_path
+    assert creds_path.read_text(encoding="utf-8") == original_content
+
+
+def test_suppress_streamlit_welcome_creates_parent_dir(tmp_path) -> None:
+    """suppress_streamlit_welcome creates ~/.streamlit/ if it does not exist."""
+    from velum import cli
+
+    assert not (tmp_path / ".streamlit").exists()
+    cli.suppress_streamlit_welcome(home=tmp_path)
+    assert (tmp_path / ".streamlit").is_dir()

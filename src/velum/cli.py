@@ -91,6 +91,39 @@ def start_backend(settings: Settings) -> subprocess.Popen:
     return subprocess.Popen(cmd, env=env)
 
 
+def suppress_streamlit_welcome(home: Path | None = None) -> Path:
+    """Pre-create Streamlit's credentials file with an empty email.
+
+    Streamlit prints an interactive welcome message and prompts for an email
+    address the first time it is run for a given user. The
+    ``--browser.gatherUsageStats false`` flag we pass to ``streamlit run``
+    disables telemetry, but it does **not** suppress that welcome prompt —
+    Streamlit checks for the existence of ``~/.streamlit/credentials.toml``
+    independently. For a local-first tool like Velum, surfacing that prompt
+    is both alarming (it looks like the tool is asking the user to opt into
+    a mailing list) and noisy. This helper ensures the credentials file
+    exists with an empty email so Streamlit treats the user as already
+    onboarded.
+
+    The function is idempotent — if the file already has any content it is
+    left untouched so user-customised credentials are preserved.
+
+    Args:
+        home: Override for the user home directory. Used by tests; in
+            production this defaults to :func:`pathlib.Path.home`.
+
+    Returns:
+        The path to the credentials file that was written or left in place.
+    """
+    home = home or Path.home()
+    creds_path = home / ".streamlit" / "credentials.toml"
+    if creds_path.exists():
+        return creds_path
+    creds_path.parent.mkdir(parents=True, exist_ok=True)
+    creds_path.write_text('[general]\nemail = ""\n', encoding="utf-8")
+    return creds_path
+
+
 def start_frontend(settings: Settings) -> subprocess.Popen:
     """Start the Streamlit frontend as a subprocess.
 
@@ -100,6 +133,8 @@ def start_frontend(settings: Settings) -> subprocess.Popen:
     Returns:
         The frontend subprocess handle.
     """
+    suppress_streamlit_welcome()
+
     frontend_path = Path(__file__).parent / "frontend" / "app.py"
 
     cmd = [
